@@ -41,10 +41,10 @@ jobs:
       
     - name: Push Docker Compose Application
       run: |
-        docker tag ${{ secrets.DOCKER_USERNAME }}/residencia_ms:latest ${{ secrets.DOCKER_USERNAME }}/residencia_ms:${{ github.run_id }} 
+        docker tag ${{ secrets.DOCKER_USERNAME }}/visita_ms:latest ${{ secrets.DOCKER_USERNAME }}/visita_ms:${{ github.run_id }} 
         
-        docker push ${{ secrets.DOCKER_USERNAME }}/residencia_ms:${{ github.run_id }} 
-        docker push ${{ secrets.DOCKER_USERNAME }}/residencia_ms:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/visita_ms:${{ github.run_id }} 
+        docker push ${{ secrets.DOCKER_USERNAME }}/visita_ms:latest
 
     - name: Download task definition
       run: |
