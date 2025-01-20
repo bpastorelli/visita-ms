@@ -44,7 +44,8 @@ public class VisitaService {
 		
 		log.info("Cadastrando uma visita: {}", visitaRequestBody.toString());
 		
-		visitaRequestBody.setGuide(UUID.randomUUID().toString()); 	
+		visitaRequestBody.setGuide(UUID.randomUUID().toString());
+		tratarPlaca(visitaRequestBody);
 		
 		this.validator.validarPost(visitaRequestBody);
 		
@@ -105,6 +106,12 @@ public class VisitaService {
 		response.setData(this.converter.convert(visitas));
 		
 		return new PageImpl<>(response.getData(), pageable, this.visitaRepository.totalRegistros(filtros));
+		
+	}
+	
+	private void tratarPlaca(VisitaDto dto) {
+		
+		dto.getPlaca().replace("-", "");
 		
 	}
 	

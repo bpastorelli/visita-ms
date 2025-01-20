@@ -59,6 +59,9 @@ public class ConvertListVisitanteToGETListVisitanteResponseDto implements Conver
 		
 		for (VinculoVeiculo vinculo : vinculos) {
 			GETVeiculoSemVisitantesResponseDto veiculo = veiculoMapper.veiculoToGETVeiculoSemVisitantesResponseDto(vinculo.getVeiculo());
+			veiculo.setMarca(vinculo.getVeiculo().getMarca().toUpperCase());
+			veiculo.setModelo(vinculo.getVeiculo().getModelo().toUpperCase());
+			veiculo.setCor(vinculo.getVeiculo().getCor().toUpperCase());
 			veiculos.add(veiculo);
 		}
 		
