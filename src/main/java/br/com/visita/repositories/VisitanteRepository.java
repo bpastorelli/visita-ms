@@ -36,10 +36,6 @@ public interface VisitanteRepository extends JpaRepository<Visitante, Long> {
 	
 	@Query(value = "select * "
 			+ "from visitante v "
-			+ "left join vinculo_veiculo vc "
-			+ "on vc.visitante_id = v.id "
-			//+ "left join veiculo ve "
-			//+ "on vc.veiculo_id = ve.id "
 			+ "where (v.id = :#{#filter.id} OR :#{#filter.id} IS NULL) "
 			+ "and (v.nome like %:#{#filter.nome}% OR :#{#filter.nome} IS NULL) "
 			+ "and (v.rg = :#{#filter.rg} OR :#{#filter.rg} IS NULL) "

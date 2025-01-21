@@ -12,12 +12,16 @@ import br.com.visita.dto.GETVisitanteResponseDto;
 import br.com.visita.entities.VinculoVeiculo;
 import br.com.visita.entities.Visitante;
 import br.com.visita.mappers.VeiculoMapper;
+import br.com.visita.repositories.VinculoVeiculoRepository;
 
 @Component
 public class ConvertListVisitanteToGETListVisitanteResponseDto implements Converter<List<GETVisitanteResponseDto>, List<Visitante>> {
 	
 	@Autowired
 	private VeiculoMapper veiculoMapper;
+	
+	@Autowired
+	private VinculoVeiculoRepository veiculoRepository;
 	
 	@Override
 	public List<GETVisitanteResponseDto> convert(List<Visitante> visitantes) {
@@ -31,6 +35,7 @@ public class ConvertListVisitanteToGETListVisitanteResponseDto implements Conver
 					.nome(m.getNome().toUpperCase())
 					.rg(m.getRg())
 					.cpf(m.getCpf() != null ? m.getCpf() : "")
+					.cep(m.getCep() != null ? m.getCep() : "" )
 					.endereco(m.getEndereco() != null ? m.getEndereco().toUpperCase() : "")
 					.numero(m.getNumero().toString() != null ? m.getNumero().toString() : "")
 					.complemento(m.getComplemento() != null ? m.getComplemento().toUpperCase() : "")
@@ -40,7 +45,7 @@ public class ConvertListVisitanteToGETListVisitanteResponseDto implements Conver
 					.celular(m.getCelular())
 					.telefone(m.getTelefone())
 					.posicao(m.getPosicao())
-					.veiculos(convertVeiculosToGETVeiculoSemVisitantesResponseDto(m.getVeiculos()))
+					.veiculos(convertVeiculosToGETVeiculoSemVisitantesResponseDto(m.getId()))
 					.guide(m.getGuide())
 					.build();
 				
@@ -53,9 +58,11 @@ public class ConvertListVisitanteToGETListVisitanteResponseDto implements Conver
 		
 	}
 	
-	private List<GETVeiculoSemVisitantesResponseDto> convertVeiculosToGETVeiculoSemVisitantesResponseDto(List<VinculoVeiculo> vinculos){
+	private List<GETVeiculoSemVisitantesResponseDto> convertVeiculosToGETVeiculoSemVisitantesResponseDto(Long id){
 		
 		List<GETVeiculoSemVisitantesResponseDto> veiculos = new ArrayList<>();
+		
+		List<VinculoVeiculo> vinculos = veiculoRepository.findByVisitanteId(id);
 		
 		for (VinculoVeiculo vinculo : vinculos) {
 			GETVeiculoSemVisitantesResponseDto veiculo = veiculoMapper.veiculoToGETVeiculoSemVisitantesResponseDto(vinculo.getVeiculo());
