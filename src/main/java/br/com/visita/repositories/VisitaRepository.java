@@ -174,6 +174,7 @@ public interface VisitaRepository extends JpaRepository<Visita, Long> {
 			+ "and (vt.nome like %:#{#filter.nome}% OR :#{#filter.nome} IS NULL) "
 			+ "and (vt.rg = :#{#filter.rg} OR :#{#filter.rg} IS NULL) "
 			+ "and (vt.cpf = :#{#filter.cpf} OR :#{#filter.cpf} IS NULL) "
+			+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) "
 			, nativeQuery = true)
 	public List<Visita> findVisitaBy(@Param("filter") VisitaFilter filter);
 	

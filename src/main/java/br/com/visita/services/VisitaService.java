@@ -101,6 +101,11 @@ public class VisitaService {
 		
 		Response<List<GETVisitaResponseDto>> response = new Response<List<GETVisitaResponseDto>>(); 
 		
+		if (filtros.getDataFim() == null && filtros.getDataInicio() != null)
+			filtros.setDataFim(filtros.getDataInicio().plusDays(1));
+		else if (filtros.getDataFim() != null && filtros.getDataInicio() != null)
+			filtros.setDataFim(filtros.getDataFim().plusDays(1));
+			
 		List<Visita> visitas = visitaRepository.findVisitaBy(filtros);
 		
 		response.setData(this.converter.convert(visitas));
