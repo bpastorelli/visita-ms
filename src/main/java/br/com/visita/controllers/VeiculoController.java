@@ -82,8 +82,6 @@ class VeiculoController extends RegistroExceptionHandler {
 			VeiculoFilter filters,
 			@PageableDefault(sort = "modelo", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) throws NoSuchAlgorithmException{
 		
-		log.info("Buscando veiculos...");
-		
 		Page<GETVeiculoResponseDto> veiculos = this.veiculoService.buscar(filters, paginacao);
 		
 		return filters.isContent() ? new ResponseEntity<>(veiculos.getContent(), HttpStatus.OK) :

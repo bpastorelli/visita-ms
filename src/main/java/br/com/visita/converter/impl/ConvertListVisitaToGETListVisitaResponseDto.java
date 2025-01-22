@@ -68,7 +68,7 @@ public class ConvertListVisitaToGETListVisitaResponseDto implements Converter<Li
 								veiculoMapper.veiculoToGETVeiculoSemVisitantesResponseDto(
 										m.getVisitante().getVeiculos()
 											.stream()
-											.filter(p -> p.getVeiculo().getPlaca().trim().equals(m.getPlaca().trim()))
+											.filter(p -> p.getVeiculo().getPlaca().trim().toUpperCase().equals(m.getPlaca().trim().toUpperCase()))
 											.findFirst()
 											.get()
 											.getVeiculo()) : null)

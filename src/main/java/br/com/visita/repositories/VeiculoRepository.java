@@ -35,7 +35,8 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 			+ "and (v.modelo = :#{#filter.modelo} OR :#{#filter.modelo} IS NULL) "
 			+ "and (v.cor = :#{#filter.cor} OR :#{#filter.cor} IS NULL) "
 			+ "and (v.ano = :#{#filter.ano} OR :#{#filter.ano} IS NULL) "
-			+ "and (v.posicao =:#{#filter.posicao} OR :#{#filter.posicao} IS NULL) "	
+			+ "and (v.posicao =:#{#filter.posicao} OR :#{#filter.posicao} IS NULL) "
+			+ "and (v.guide =:#{#filter.guide} OR :#{#filter.guide} IS NULL)"
 			, nativeQuery = true)
 	public List<Veiculo> findVeiculosBy(@Param("filter") VeiculoFilter filter);
 	
@@ -48,6 +49,7 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 			+ "and (v.cor = :#{#filter.cor} OR :#{#filter.cor} IS NULL) "
 			+ "and (v.ano = :#{#filter.ano} OR :#{#filter.ano} IS NULL) "
 			+ "and (v.posicao =:#{#filter.posicao} OR :#{#filter.posicao} IS NULL) "
+			+ "and (v.guide =:#{#filter.guide} OR :#{#filter.guide} IS NULL)"
 			, nativeQuery = true)
 	public Long totalRegistros(@Param("filter") VeiculoFilter filter);
 
