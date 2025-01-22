@@ -1,9 +1,6 @@
 package br.com.visita.dto;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,30 +11,27 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GETVeiculoResponseDto implements Serializable {
+public class AtualizaVeiculoDto implements Serializable {
 	
 
 	private static final long serialVersionUID = 1423232434532327L;
 	
 	private Long id;
 	
-	@NotNull(message = "Campo Placa é obrigatório!")
-	private String placa;
-	
 	private String marca;
 	
-	@NotNull(message = "O campo Modelo é obrigatório!")
 	private String modelo;
 	
-	@NotNull(message = "O campo Cor é obrigatório!")
 	private String cor;
 	
 	private Long   ano;
 	
-	private Long posicao;
+	private Long  visitanteId;
+	
+	private Long   posicao;
 	
 	private String guide;
 	
-	private List<GETVisitanteSemVeiculosResponseDto> visitantes;
+	private String ticketVisitante;
 
 }

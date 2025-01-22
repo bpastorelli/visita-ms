@@ -95,8 +95,7 @@ public class VisitanteService {
 	}
 	
 	public Page<GETVisitanteResponseDto> buscar(VisitanteFilter filtros, Pageable paginacao){
-		
-		
+				
 		log.info("Buscando visitante(s)...");
 		
 		Response<List<GETVisitanteResponseDto>> response = new Response<List<GETVisitanteResponseDto>>(); 
