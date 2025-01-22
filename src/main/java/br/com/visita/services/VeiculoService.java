@@ -100,6 +100,9 @@ public class VeiculoService {
 		
 		Response<List<GETVeiculoResponseDto>> response = new Response<List<GETVeiculoResponseDto>>(); 
 		
+		if (filtros.getPlaca() != null)
+			filtros.setPlaca(filtros.getPlaca().replace("-", ""));
+		
 		List<Veiculo> veiculos = veiculoRepository.findVeiculosBy(filtros);
 		
 		response.setData(this.converter.convert(veiculos));

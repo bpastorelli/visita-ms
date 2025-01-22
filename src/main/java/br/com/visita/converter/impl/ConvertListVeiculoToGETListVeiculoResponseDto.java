@@ -54,7 +54,7 @@ public class ConvertListVeiculoToGETListVeiculoResponseDto implements Converter<
 	private List<GETVisitanteSemVeiculosResponseDto> convertVisitantesToGETVisitanteSemVeiculosResponseDto(Long id){
 		
 		List<GETVisitanteSemVeiculosResponseDto> visitantes = new ArrayList<>();
-		List<VinculoVeiculo> vinculos = veiculoRepository.findByVisitanteId(id);
+		List<VinculoVeiculo> vinculos = veiculoRepository.findByVeiculoId(id);
 		
 		for (VinculoVeiculo vinculo : vinculos) {
 			GETVisitanteSemVeiculosResponseDto visitante = visitanteMapper.visitanteToGETVisitanteSemVeiculosResponseDto(vinculo.getVisitante());
