@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GETVisitaResponseDto implements Serializable {
+public class GETVisitaResponseDto implements Serializable, Comparable<GETVisitaResponseDto> {
 
 	private static final long serialVersionUID = -5754246207015712520L;
 	
@@ -51,5 +51,10 @@ public class GETVisitaResponseDto implements Serializable {
 	private GETVeiculoSemVisitantesResponseDto veiculo;
 	
 	private String guide;
+
+	@Override
+	public int compareTo(GETVisitaResponseDto o) {
+		return this.nome.compareTo(o.nome);
+	}
 	
 }

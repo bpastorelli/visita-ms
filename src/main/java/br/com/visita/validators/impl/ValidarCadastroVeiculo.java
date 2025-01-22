@@ -57,12 +57,11 @@ public class ValidarCadastroVeiculo implements Validators<VeiculoDto, AtualizaVe
 		this.veiculoRepository.findByPlaca(t.getPlaca().replace("-", "")).
 			ifPresent(res -> errors.getErros().add(new ErroRegistro("", TITULO, "A placa informada (" + t.getPlaca() + ") já existe para o veiculo id " + res.getId() + "!") ));
 		
-//		if(!this.serviceVeiculo.buscarPorId(t.getVisitanteId()).isPresent())
-//			result.addError(new ObjectError("veiculo", "Visitante inexistente!"));		
-		
-//		this.serviceVinculoVeiculo.buscarPorPlacaAndVisitanteId(t.getPlaca().replace("-", ""), t.getVisitanteId()).
-//			ifPresent(res -> result.addError(new ObjectError("veiculo", "Veiculo de placa " + t.getPlaca() + " já vinculado para esta pessoa!")));
 		t.setPlaca(t.getPlaca().replace("-", ""));
+		t.setPlaca(t.getPlaca().toUpperCase());
+		t.setMarca(t.getMarca().toUpperCase());
+		t.setModelo(t.getModelo().toUpperCase());
+		t.setCor(t.getCor().toUpperCase());
 		
 		if(!errors.getErros().isEmpty())
 			throw errors;
