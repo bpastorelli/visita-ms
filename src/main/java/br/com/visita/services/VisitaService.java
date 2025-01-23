@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,8 @@ import br.com.visita.converter.Converter;
 import br.com.visita.dto.CabecalhoResponsePublisherDto;
 import br.com.visita.dto.EncerraVisitaDto;
 import br.com.visita.dto.GETVisitaResponseDto;
+import br.com.visita.dto.GETVisitasPaginadoResponseDto;
+import br.com.visita.dto.PaginacaoDto;
 import br.com.visita.dto.ResponsePublisherDto;
 import br.com.visita.dto.VisitaDto;
 import br.com.visita.entities.Visita;
@@ -95,22 +97,38 @@ public class VisitaService {
 		return response;
 	}
 	
-	public Page<GETVisitaResponseDto> buscar(VisitaFilter filtros, Pageable pageable) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
+	public GETVisitasPaginadoResponseDto buscar(VisitaFilter filtros, Pageable pageable) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
 
 		log.info("Buscando visita(s)...");
 		
 		Response<List<GETVisitaResponseDto>> response = new Response<List<GETVisitaResponseDto>>(); 
+		
+		PageRequest request = PageRequest.of(pageable.getPageNumber() == 0 ? 0 : (pageable.getPageNumber() > 0 ? pageable.getPageNumber() - 1 : 0), pageable.getPageSize());
 		
 		if (filtros.getDataFim() == null && filtros.getDataInicio() != null)
 			filtros.setDataFim(filtros.getDataInicio().plusDays(1));
 		else if (filtros.getDataFim() != null && filtros.getDataInicio() != null)
 			filtros.setDataFim(filtros.getDataFim().plusDays(1));
 			
-		List<Visita> visitas = visitaRepository.findVisitaBy(filtros);
+		Page<Visita> visitas = visitaRepository.findVisitaBy(filtros, request);
 		
-		response.setData(this.converter.convert(visitas));
+		response.setData(this.converter.convert(visitas.getContent()));
 		
-		return new PageImpl<>(response.getData(), pageable, this.visitaRepository.totalRegistros(filtros));
+		int page = visitas.getNumber() == 0 ? 1 : (visitas.getNumber() >= 1 ? visitas.getNumber()+1 : 1);
+		
+		PaginacaoDto paginacao = PaginacaoDto.builder()
+				.pagina(page)
+				.paginaAnterior(page == 1 ? 1 : page-1)
+				.proximaPagina(page < visitas.getTotalPages() ? page+1 : visitas.getTotalPages())
+				.totalPaginas(visitas.getTotalPages())
+				.build();
+		
+		GETVisitasPaginadoResponseDto responsePaginado = GETVisitasPaginadoResponseDto.builder()
+				.visitas(response.getData())
+				.paginacao(paginacao)
+				.build();
+		
+		return responsePaginado;
 		
 	}
 	

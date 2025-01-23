@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.visita.dto.EncerraVisitaDto;
-import br.com.visita.dto.GETVisitaResponseDto;
+import br.com.visita.dto.GETVisitasPaginadoResponseDto;
 import br.com.visita.dto.ResponsePublisherDto;
 import br.com.visita.dto.VisitaDto;
 import br.com.visita.errorheadling.RegistroException;
@@ -75,9 +74,10 @@ class VisitaController extends RegistroExceptionHandler {
 	@GetMapping(value = "/filtro")
 	public ResponseEntity<?> buscarVisitasFiltro(
 			VisitaFilter filters,
-			@PageableDefault(page = 0, size = 10) Pageable paginacao) throws NoSuchAlgorithmException {
+			@PageableDefault(page = 1, size = 30) Pageable paginacao) throws NoSuchAlgorithmException {
 		
-		Page<GETVisitaResponseDto> visitas = null;
+		GETVisitasPaginadoResponseDto visitas = null;
+		
 		try {
 			visitas = this.visitaService.buscar(filters, paginacao);
 		} catch (IllegalArgumentException e) {
@@ -88,7 +88,7 @@ class VisitaController extends RegistroExceptionHandler {
 			e.printStackTrace();
 		}
 		
-		return filters.isContent() ? new ResponseEntity<>(visitas.getContent(), HttpStatus.OK) :
+		return filters.isContent() ? new ResponseEntity<>(visitas.getVisitas(), HttpStatus.OK) :
 					new ResponseEntity<>(visitas, HttpStatus.OK);
 		
 	}

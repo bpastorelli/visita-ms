@@ -17,8 +17,10 @@ public interface VeiculoMapper {
 	@Mapping(target = "placa", source = "placa", qualifiedByName = "FormatarPlaca")
 	public abstract GETVeiculoResponseDto veiculoToGETVeiculoResponseDto(Veiculo veiculo);
 	
+	@Mapping(target = "placa", source = "placa", qualifiedByName = "FormatarPlaca")
 	public abstract VeiculoDto veiculoToVeiculoDto(Veiculo veiculo);
 	
+	@Mapping(target = "placa", source = "placa", qualifiedByName = "FormatarPlaca")
 	public abstract GETVeiculoSemVisitantesResponseDto veiculoToGETVeiculoSemVisitantesResponseDto(Veiculo veiculo);
 	
 	@Named("FormatarPlaca")
