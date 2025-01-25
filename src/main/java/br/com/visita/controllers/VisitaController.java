@@ -45,8 +45,6 @@ class VisitaController extends RegistroExceptionHandler {
 	public ResponseEntity<?> cadastrarNovoAMQP(@Valid @RequestBody VisitaDto visitaRequestBody,
 											   BindingResult result ) throws RegistroException{
 		
-		log.info("Enviando mensagem para o consumer...");
-		
 		ResponsePublisherDto response = this.visitaService.salvar(visitaRequestBody);
 		
 		return response.getTicket() == null ? 
@@ -59,8 +57,6 @@ class VisitaController extends RegistroExceptionHandler {
 	@PutMapping(value = "/amqp/encerrar")
 	public ResponseEntity<?> encerrarVisitaAMQP(@Valid @RequestBody EncerraVisitaDto encerraVisitaDto,
 			BindingResult result) throws RegistroException{
-		
-		log.info("Enviando mensagem para o consumer...");
 		
 		ResponsePublisherDto response = visitaService.atualizar(encerraVisitaDto);
 		

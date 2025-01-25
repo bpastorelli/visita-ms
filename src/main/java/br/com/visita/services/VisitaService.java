@@ -70,7 +70,7 @@ public class VisitaService {
 	
 	public ResponsePublisherDto atualizar(EncerraVisitaDto visitaRequestBody) throws RegistroException {
 
-		log.info("Cadastrando um veículo: {}", visitaRequestBody.toString());
+		log.info("Encerrando a visita: {}", visitaRequestBody.getId());
 		
 		this.validator.validarPut(visitaRequestBody);
 		
