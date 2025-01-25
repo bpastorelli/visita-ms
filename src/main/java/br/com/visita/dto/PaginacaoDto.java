@@ -16,5 +16,7 @@ public class PaginacaoDto {
 	private int proximaPagina;
 	
 	private int totalPaginas;
+	
+	private long totalItems;
 
 }

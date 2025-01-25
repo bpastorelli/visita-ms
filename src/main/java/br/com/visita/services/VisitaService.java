@@ -121,6 +121,7 @@ public class VisitaService {
 				.paginaAnterior(page == 1 ? 1 : page-1)
 				.proximaPagina(page < visitas.getTotalPages() ? page+1 : visitas.getTotalPages())
 				.totalPaginas(visitas.getTotalPages())
+				.totalItems(visitas.getTotalElements())
 				.build();
 		
 		GETVisitasPaginadoResponseDto responsePaginado = GETVisitasPaginadoResponseDto.builder()
