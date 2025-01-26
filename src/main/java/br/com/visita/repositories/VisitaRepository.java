@@ -174,7 +174,8 @@ public interface VisitaRepository extends JpaRepository<Visita, Long> {
 			+ "and (vt.nome like %:#{#filter.nome}% OR :#{#filter.nome} IS NULL) "
 			+ "and (vt.rg = :#{#filter.rg} OR :#{#filter.rg} IS NULL) "
 			+ "and (vt.cpf = :#{#filter.cpf} OR :#{#filter.cpf} IS NULL) "
-			+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) \n-- #paginacao\n",
+			+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) "
+			+ "order by vt.nome \n-- #paginacao\n",
 			countQuery = "select count(*)"
 					+ " from visita v "
 					+ " join visitante vt "
@@ -187,18 +188,5 @@ public interface VisitaRepository extends JpaRepository<Visita, Long> {
 					+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) "
 			, nativeQuery = true)
 	public Page<Visita> findVisitaBy(@Param("filter") VisitaFilter filter, Pageable paginacao);
-	
-	@Query(value = "select count(*)"
-			+ " from visita v "
-			+ " join visitante vt "
-			+ " on v.visitante_id = vt.id "
-			+ " where (v.id = :#{#filter.id} OR :#{#filter.id} IS NULL) "
-			+ " and (v.posicao =:#{#filter.posicao} OR :#{#filter.posicao} IS NULL) "
-			+ " and (vt.nome like %:#{#filter.nome}% OR :#{#filter.nome} IS NULL) "
-			+ " and (vt.rg = :#{#filter.rg} OR :#{#filter.rg} IS NULL) "
-			+ " and (vt.cpf = :#{#filter.cpf} OR :#{#filter.cpf} IS NULL) "
-			+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) "
-			, nativeQuery = true)
-	public Long totalRegistros(@Param("filter") VisitaFilter filter);
 
 }

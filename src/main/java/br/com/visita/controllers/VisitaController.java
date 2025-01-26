@@ -28,9 +28,7 @@ import br.com.visita.filter.VisitaFilter;
 import br.com.visita.services.VisitaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @Api(tags = "Cadastro de Visitas")
 @RequestMapping("/visita-ms/visita")

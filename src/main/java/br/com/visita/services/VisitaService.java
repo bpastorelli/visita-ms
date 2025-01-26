@@ -105,10 +105,12 @@ public class VisitaService {
 		
 		PageRequest request = PageRequest.of(pageable.getPageNumber() == 0 ? 0 : (pageable.getPageNumber() > 0 ? pageable.getPageNumber() - 1 : 0), pageable.getPageSize());
 		
-		if (filtros.getDataFim() == null && filtros.getDataInicio() != null)
+		if (filtros.getDataFim() == null && filtros.getDataInicio() != null) {
 			filtros.setDataFim(filtros.getDataInicio().plusDays(1));
-		else if (filtros.getDataFim() != null && filtros.getDataInicio() != null)
+			log.debug("Data inicio {} e data fim {}", filtros.getDataInicio(), filtros.getDataFim());
+		} else if (filtros.getDataFim() != null && filtros.getDataInicio() != null) {
 			filtros.setDataFim(filtros.getDataFim().plusDays(1));
+		}
 			
 		Page<Visita> visitas = visitaRepository.findVisitaBy(filtros, request);
 		
