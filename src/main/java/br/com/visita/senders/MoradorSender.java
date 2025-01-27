@@ -10,9 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.visita.dto.GETMoradoresResponseDto;
 import br.com.visita.dto.MoradorRequestDto;
 import br.com.visita.utils.RestTemplateUtil;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class MoradorSender {
 	
@@ -23,8 +21,6 @@ public class MoradorSender {
 	private RestTemplate restTemplate;
 	
 	public GETMoradoresResponseDto buscarPorFiltros(MoradorRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
-		
-		log.info("Consultando moradores no endpoint: {}", URL);
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/query?%s")
@@ -40,8 +36,6 @@ public class MoradorSender {
 	
 	public GETMoradoresResponseDto buscarPorIds(MoradorRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
 		
-		log.info("Consultando moradores no endpoint: {}", URL);
-		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/buscar?%s")
 				.mediaType(MediaType.APPLICATION_JSON)
@@ -55,8 +49,6 @@ public class MoradorSender {
 	}
 	
 	public GETMoradoresResponseDto buscarPorResidenciaId(MoradorRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
-		
-		log.info("Consultando moradores no endpoint: {}", URL);
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/residencia?%s")

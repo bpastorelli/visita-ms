@@ -11,9 +11,7 @@ import br.com.visita.dto.GETVinculoMoradorResidenciaResponseDto;
 import br.com.visita.dto.GETVinculoResidenciaMoradorResponseDto;
 import br.com.visita.dto.VinculoResidenciaRequestDto;
 import br.com.visita.utils.RestTemplateUtil;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class VinculosSender {
 	
@@ -24,8 +22,6 @@ public class VinculosSender {
 	private RestTemplate restTemplate;
 	
 	public GETVinculoMoradorResidenciaResponseDto buscarResidenciasPorMorador(VinculoResidenciaRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
-		
-		log.info("Consultando residencias no endpoint: {}", URL);
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/consulta?%s")
@@ -41,8 +37,6 @@ public class VinculosSender {
 	
 	public GETVinculoResidenciaMoradorResponseDto buscarMoradoresPorResidencia(VinculoResidenciaRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
 		
-		log.info("Consultando moradores no endpoint: {}", URL);
-		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/consulta?%s")
 				.mediaType(MediaType.APPLICATION_JSON)
@@ -56,8 +50,6 @@ public class VinculosSender {
 	}
 	
 	public Boolean existeRelacao(VinculoResidenciaRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
-		
-		log.info("Consultando residencias no endpoint: {}", URL);
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "?%s")
