@@ -31,9 +31,7 @@ import br.com.visita.filter.VisitanteFilter;
 import br.com.visita.services.VisitanteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @Api(tags = "Cadastro de Visitantes")
 @RequestMapping("/visita-ms/visitante")
@@ -49,8 +47,6 @@ class VisitanteController extends RegistroExceptionHandler {
 	public ResponseEntity<?> cadastrarNovoAMQP(@Valid @RequestBody VisitanteDto visitanteRequestBody,
 											   BindingResult result ) throws RegistroException{
 		
-		log.info("Enviando mensagem para o consumer...");
-		
 		ResponsePublisherDto response = this.visitanteService.salvar(visitanteRequestBody);
 		
 		return response.getTicket() == null ? 
@@ -65,8 +61,6 @@ class VisitanteController extends RegistroExceptionHandler {
 			@Valid @RequestBody AtualizaVisitanteDto visitanteRequestBody,
 			@RequestParam(value = "id", defaultValue = "0") Long id,
 			BindingResult result) throws RegistroException{
-		
-		log.info("Enviando mensagem para o consumer...");
 		
 		visitanteRequestBody.setId(id);
 		ResponsePublisherDto response = this.visitanteService.atualizar(visitanteRequestBody);
