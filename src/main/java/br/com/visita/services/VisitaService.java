@@ -99,7 +99,7 @@ public class VisitaService {
 	
 	public GETVisitasPaginadoResponseDto buscar(VisitaFilter filtros, Pageable pageable) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
 
-		log.info("Buscando visita(s).");
+		log.info("Buscando visita(s)...");
 		
 		Response<List<GETVisitaResponseDto>> response = new Response<List<GETVisitaResponseDto>>(); 
 		
