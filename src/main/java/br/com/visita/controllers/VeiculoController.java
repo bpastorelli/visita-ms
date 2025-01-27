@@ -31,9 +31,7 @@ import br.com.visita.filter.VeiculoFilter;
 import br.com.visita.services.VeiculoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @Api(tags = "Cadastro de Veiculos")
 @RequestMapping("/visita-ms/veiculo")
@@ -47,8 +45,6 @@ class VeiculoController extends RegistroExceptionHandler {
 	@PostMapping(value = "/amqp/novo")
 	public ResponseEntity<?> cadastrarNovoAMQP(@Valid @RequestBody VeiculoDto veiculoRequestBody,
 											   BindingResult result ) throws RegistroException{
-		
-		log.info("Enviando mensagem para o consumer...");
 		
 		ResponsePublisherDto response = this.veiculoService.salvar(veiculoRequestBody);
 		
@@ -64,8 +60,6 @@ class VeiculoController extends RegistroExceptionHandler {
 			@Valid @RequestBody AtualizaVeiculoDto veiculoRequestBody,
 			@RequestParam(value = "id", defaultValue = "null") Long id,
 			BindingResult result) throws RegistroException{
-		
-		log.info("Enviando mensagem para o consumer...");
 		
 		veiculoRequestBody.setId(id);
 		ResponsePublisherDto response = this.veiculoService.atualizar(veiculoRequestBody);
