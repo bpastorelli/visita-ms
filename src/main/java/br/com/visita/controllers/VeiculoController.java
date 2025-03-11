@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(tags = "Cadastro de Veiculos")
-@RequestMapping("/visita-ms/veiculo")
+@RequestMapping("/sgc/veiculo")
 @CrossOrigin(origins = "*")
 class VeiculoController extends RegistroExceptionHandler {
 	
