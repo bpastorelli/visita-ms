@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(tags = "Cadastro de Visitas")
-@RequestMapping("/visita-ms/visita")
+@RequestMapping("/sgc/visita")
 @CrossOrigin(origins = "*")
 class VisitaController extends RegistroExceptionHandler {
 	
