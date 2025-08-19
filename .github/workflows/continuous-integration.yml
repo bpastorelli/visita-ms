@@ -13,9 +13,8 @@ jobs:
     - name: Checkout do projeto de dependência
       uses: actions/checkout@v4
       with:
-        repository: 'bpastorelli/visita-ms'
-        # Caminho onde a dependência será clonada no runner
-        path: './visita-ms'
+        repository: 'bpastorelli/sgc-ia'
+        path: './sgc-ia'
     
     - uses: actions/checkout@v4
     - name: Docker Login
@@ -40,7 +39,7 @@ jobs:
 
     - name: Construir e instalar a dependência
       run: mvn clean install -DskipTests
-      working-directory: './visita-ms'
+      working-directory: './sgc-ia'
         
     - name: Build Application
       working-directory: .
