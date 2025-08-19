@@ -13,7 +13,6 @@ jobs:
     - name: Checkout do projeto de dependência
       uses: actions/checkout@v4
       with:
-        # Repositório da dependência. Substitua por sua organização e repositório
         repository: 'bpastorelli/visita-ms'
         # Caminho onde a dependência será clonada no runner
         path: './visita-ms'
@@ -38,6 +37,10 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
+
+    - name: Construir e instalar a dependência
+      run: mvn clean install -DskipTests
+      working-directory: './visita-ms'
         
     - name: Build Application
       working-directory: .
