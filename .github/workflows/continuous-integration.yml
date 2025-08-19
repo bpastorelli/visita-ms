@@ -10,12 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do projeto de dependência
-      uses: actions/checkout@v4
-      with:
-        repository: 'bpastorelli/sgc-ia'
-        path: './sgc-ia'
-    
     - uses: actions/checkout@v4
     - name: Docker Login
       uses: docker/login-action@v3.1.0
@@ -36,10 +30,6 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
-
-    - name: Construir e instalar a dependência
-      run: mvn clean install -DskipTests
-      working-directory: './sgc-ia'
         
     - name: Build Application
       working-directory: .
