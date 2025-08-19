@@ -10,6 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout do projeto de dependência
+      uses: actions/checkout@v4
+      with:
+        # Repositório da dependência. Substitua por sua organização e repositório
+        repository: 'bpastorelli/visita-ms'
+        # Caminho onde a dependência será clonada no runner
+        path: './visita-ms'
+    
     - uses: actions/checkout@v4
     - name: Docker Login
       uses: docker/login-action@v3.1.0
