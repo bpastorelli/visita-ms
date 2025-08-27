@@ -2,11 +2,10 @@ package br.com.visita.filter;
 
 import java.time.LocalDate;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 

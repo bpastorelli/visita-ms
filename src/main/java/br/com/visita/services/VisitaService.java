@@ -54,7 +54,7 @@ public class VisitaService {
 		//Envia para a fila de Morador
 		log.info("Enviando mensagem " +  visitaRequestBody.toString() + " para o consumer.");
 		
-		this.producer.producerAsync(visitaRequestBody);
+		this.producer.producer(visitaRequestBody);
 		
 		ResponsePublisherDto response = ResponsePublisherDto
 				.builder()
@@ -84,7 +84,7 @@ public class VisitaService {
 				.guide(visita.getGuide())
 				.build();
 		
-		this.producer.producerAsync(visitaRequest);
+		this.producer.producer(visitaRequest);
 		
 		ResponsePublisherDto response = ResponsePublisherDto
 				.builder()

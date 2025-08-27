@@ -2,8 +2,6 @@ package br.com.visita.controllers;
 
 import java.security.NoSuchAlgorithmException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,20 +28,19 @@ import br.com.visita.filter.VisitanteFilter;
 import br.com.visita.services.VisitanteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 
 @RestController
 @Api(tags = "Cadastro de Visitantes")
 @RequestMapping("/sgc/visitante")
-@CrossOrigin(origins = "*")
 class VisitanteController extends RegistroExceptionHandler {
-	
 	
 	@Autowired
 	private VisitanteService visitanteService;
 	
 	@ApiOperation(value = "Produz uma nova mensagem no Kafka para cadastro de visitante.")
 	@PostMapping(value = "/amqp/novo")
-	public ResponseEntity<?> cadastrarNovoAMQP(@Valid @RequestBody VisitanteDto visitanteRequestBody,
+	public ResponseEntity<?> cadastrar(@Valid @RequestBody VisitanteDto visitanteRequestBody,
 											   BindingResult result ) throws RegistroException{
 		
 		ResponsePublisherDto response = this.visitanteService.salvar(visitanteRequestBody);
@@ -57,9 +53,9 @@ class VisitanteController extends RegistroExceptionHandler {
 	
 	@ApiOperation(value = "Produz uma nova mensagem no Kafka para alterar um visitante.")
 	@PutMapping(value = "/amqp/alterar")
-	public ResponseEntity<?> alterarAMQP( 
+	public ResponseEntity<?> alterar( 
 			@Valid @RequestBody AtualizaVisitanteDto visitanteRequestBody,
-			@RequestParam(value = "id", defaultValue = "0") Long id,
+			@RequestParam(defaultValue = "0") Long id,
 			BindingResult result) throws RegistroException{
 		
 		visitanteRequestBody.setId(id);
@@ -73,7 +69,7 @@ class VisitanteController extends RegistroExceptionHandler {
 	
 	@ApiOperation(value = "Pesquisa visitantes a partir dos filtros informados.")
 	@GetMapping(value = "/filtro")
-	public ResponseEntity<?> buscarMoradoresFiltro(
+	public ResponseEntity<?> buscar(
 			VisitanteFilter filters,
 			@PageableDefault(sort = "nome", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) throws NoSuchAlgorithmException {
 		

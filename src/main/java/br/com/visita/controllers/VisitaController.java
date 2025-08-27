@@ -2,15 +2,12 @@ package br.com.visita.controllers;
 
 import java.security.NoSuchAlgorithmException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,11 +25,11 @@ import br.com.visita.filter.VisitaFilter;
 import br.com.visita.services.VisitaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 
 @RestController
 @Api(tags = "Cadastro de Visitas")
 @RequestMapping("/sgc/visita")
-@CrossOrigin(origins = "*")
 class VisitaController extends RegistroExceptionHandler {
 	
 	@Autowired
@@ -74,11 +71,7 @@ class VisitaController extends RegistroExceptionHandler {
 		
 		try {
 			visitas = this.visitaService.buscar(filters, paginacao);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

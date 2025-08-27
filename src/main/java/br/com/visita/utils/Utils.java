@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.activation.MimetypesFileTypeMap;
 
 public class Utils {
 	
@@ -71,13 +70,6 @@ public class Utils {
 		Long dt = date.getLong(ChronoField.DAY_OF_YEAR);
 		
 	    return dt;
-	}
-
-	public static String getFileTypeByMimetypesFileTypeMap(final String fileName){    
-	
-	    final MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
-	    return fileTypeMap.getContentType(fileName);
-	
 	}
 	
 	public static boolean compareDate(Date date1, Date date2) {

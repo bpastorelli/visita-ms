@@ -1,8 +1,7 @@
 package br.com.visita.dto;
 
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

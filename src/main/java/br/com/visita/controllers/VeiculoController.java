@@ -2,8 +2,6 @@ package br.com.visita.controllers;
 
 import java.security.NoSuchAlgorithmException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.visita.dto.AtualizaVeiculoDto;
 import br.com.visita.dto.GETVeiculoResponseDto;
+import br.com.visita.dto.ProdutoRequestDto;
 import br.com.visita.dto.ResponsePublisherDto;
 import br.com.visita.dto.VeiculoDto;
 import br.com.visita.errorheadling.RegistroException;
@@ -31,11 +29,11 @@ import br.com.visita.filter.VeiculoFilter;
 import br.com.visita.services.VeiculoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 
 @RestController
 @Api(tags = "Cadastro de Veiculos")
 @RequestMapping("/sgc/veiculo")
-@CrossOrigin(origins = "*")
 class VeiculoController extends RegistroExceptionHandler {
 	
 	@Autowired
@@ -43,10 +41,23 @@ class VeiculoController extends RegistroExceptionHandler {
 	
 	@ApiOperation(value = "Produz uma nova mensagem no Kafka para cadastro de um novo veículo de visitante.")
 	@PostMapping(value = "/amqp/novo")
-	public ResponseEntity<?> cadastrarNovoAMQP(@Valid @RequestBody VeiculoDto veiculoRequestBody,
+	public ResponseEntity<?> cadastrar(@Valid @RequestBody VeiculoDto veiculoRequestBody,
 											   BindingResult result ) throws RegistroException{
 		
 		ResponsePublisherDto response = this.veiculoService.salvar(veiculoRequestBody);
+		
+		return response.getTicket() == null ? 
+				ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response.getErrors()) : 
+				ResponseEntity.status(HttpStatus.ACCEPTED).body(response.getTicket());
+		
+	}
+	
+	@ApiOperation(value = "Produz uma nova mensagem no Kafka para cadastro de um novo veículo de visitante.")
+	@PostMapping(value = "/amqp/novo/chatbot")
+	public ResponseEntity<?> assistente(@Valid @RequestBody ProdutoRequestDto veiculoRequestBody,
+											   BindingResult result ) throws RegistroException{
+		
+		ResponsePublisherDto response = this.veiculoService.assistenteCriacao(veiculoRequestBody);
 		
 		return response.getTicket() == null ? 
 				ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response.getErrors()) : 
@@ -58,7 +69,7 @@ class VeiculoController extends RegistroExceptionHandler {
 	@PutMapping(value = "/amqp/alterar")
 	public ResponseEntity<?> atualizarAMQP(
 			@Valid @RequestBody AtualizaVeiculoDto veiculoRequestBody,
-			@RequestParam(value = "id", defaultValue = "null") Long id,
+			@RequestParam(defaultValue = "null") Long id,
 			BindingResult result) throws RegistroException{
 		
 		veiculoRequestBody.setId(id);

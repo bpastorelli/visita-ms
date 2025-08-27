@@ -28,7 +28,7 @@ public class RegistroException extends Exception {
 	
 	public RegistroException(ResponseEntity<?> responseEntity ) {
 		
-		super("Erro: " + responseEntity.getStatusCodeValue() + " (" + responseEntity.getStatusCode().getReasonPhrase() + ")");
+		super("Erro: " + responseEntity.getStatusCodeValue() + " (" + responseEntity.getStatusCode() + ")");
 		this.responseEntity = responseEntity;
 	}
 

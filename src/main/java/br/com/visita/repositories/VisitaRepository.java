@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.visita.entities.Visita;
 import br.com.visita.filter.VisitaFilter;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
 @Repository
 @Transactional(readOnly = true)
