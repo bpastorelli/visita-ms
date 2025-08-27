@@ -174,7 +174,7 @@ public interface VisitaRepository extends JpaRepository<Visita, Long> {
 			+ "and (vt.rg = :#{#filter.rg} OR :#{#filter.rg} IS NULL) "
 			+ "and (vt.cpf = :#{#filter.cpf} OR :#{#filter.cpf} IS NULL) "
 			+ "and (v.data_entrada BETWEEN :#{#filter.dataInicio} AND :#{#filter.dataFim} OR :#{#filter.dataInicio} IS NULL OR :#{#filter.dataFim} IS NULL) "
-			+ "order by vt.nome \n-- #paginacao\n",
+			+ "order by vt.nome ",
 			countQuery = "select count(*)"
 					+ " from visita v "
 					+ " join visitante vt "
