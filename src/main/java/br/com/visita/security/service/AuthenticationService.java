@@ -23,7 +23,7 @@ import br.com.visita.security.dto.AlterarSenhaDto;
 import br.com.visita.security.dto.JwtAuthenticationDto;
 import br.com.visita.security.dto.TokenDto;
 import br.com.visita.security.util.JwtTokenUtil;
-import br.com.visita.utils.PasswordUtils;
+import br.com.visita.security.util.PasswordUtils;
 import br.com.visita.validators.Validators;
 
 @Service

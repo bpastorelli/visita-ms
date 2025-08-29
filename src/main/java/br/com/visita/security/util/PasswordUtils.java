@@ -1,4 +1,4 @@
-package br.com.visita.utils;
+package br.com.visita.security.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
