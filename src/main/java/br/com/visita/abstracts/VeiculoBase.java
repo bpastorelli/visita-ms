@@ -2,6 +2,8 @@ package br.com.visita.abstracts;
 
 import java.util.List;
 
+import javax.persistence.MappedSuperclass;
+
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +14,6 @@ import com.theokanning.openai.service.OpenAiService;
 
 import br.com.visita.dto.ProdutoRequestDto;
 import br.com.visita.dto.VeiculoDto;
-import jakarta.persistence.MappedSuperclass;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

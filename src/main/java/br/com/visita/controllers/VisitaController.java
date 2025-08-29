@@ -2,6 +2,8 @@ package br.com.visita.controllers;
 
 import java.security.NoSuchAlgorithmException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -25,7 +27,6 @@ import br.com.visita.filter.VisitaFilter;
 import br.com.visita.services.VisitaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jakarta.validation.Valid;
 
 @RestController
 @Api(tags = "Cadastro de Visitas")

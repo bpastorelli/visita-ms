@@ -1,6 +1,7 @@
 package br.com.visita.errorheadling;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
