@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.visita.dto.QueryResidenciaResponseDto;
 import br.com.visita.dto.ResidenciaRequestDto;
+import br.com.visita.security.service.TokenService;
 import br.com.visita.utils.RestTemplateUtil;
 
 @Service
@@ -20,10 +21,14 @@ public class ResidenciaSender {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	public QueryResidenciaResponseDto buscarResidencias(ResidenciaRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "?%s")
+				.jwtToken(tokenService.getCurrentToken())
 				.mediaType(MediaType.APPLICATION_JSON)
 				.method(HttpMethod.GET)
 				.restTemplate(restTemplate)
@@ -38,6 +43,7 @@ public class ResidenciaSender {
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/filtro?%s")
+				.jwtToken(tokenService.getCurrentToken())
 				.mediaType(MediaType.APPLICATION_JSON)
 				.method(HttpMethod.GET)
 				.restTemplate(restTemplate)

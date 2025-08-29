@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.visita.dto.GETVinculoMoradorResidenciaResponseDto;
 import br.com.visita.dto.GETVinculoResidenciaMoradorResponseDto;
 import br.com.visita.dto.VinculoResidenciaRequestDto;
+import br.com.visita.security.service.TokenService;
 import br.com.visita.utils.RestTemplateUtil;
 
 @Service
@@ -21,10 +22,14 @@ public class VinculosSender {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	public GETVinculoMoradorResidenciaResponseDto buscarResidenciasPorMorador(VinculoResidenciaRequestDto request) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException{
 		
 		RestTemplateUtil rest = RestTemplateUtil.builder()
 				.URL(URL + "/consulta?%s")
+				.jwtToken(tokenService.getCurrentToken())
 				.mediaType(MediaType.APPLICATION_JSON)
 				.method(HttpMethod.GET)
 				.restTemplate(restTemplate)
