@@ -33,6 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests(requests -> requests
                 //.mvcMatchers(HttpMethod.GET, "https://j77akndu44.execute-api.sa-east-1.amazonaws.com/prod/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "**/sgc/visitante/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "**/sgc/visitante/**").permitAll()
+                .mvcMatchers(HttpMethod.PUT, "**/sgc/visitante/**").permitAll()
                 .antMatchers(HttpMethod.GET, AUTH_WHITELIST).permitAll()
                 .anyRequest()
                 .authenticated())
